@@ -1,4 +1,7 @@
+
+
 * Pakkar og melpa 
+** Melpa setup 
 #+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -15,19 +18,10 @@
 (unless (package-installed-p 'spacemacs-theme)
   (package-refresh-contents)
   (package-install 'spacemacs-theme))
+#+END_SRC
 
-
-
-(use-package which-key
-  :ensure t
-  :init
-  (which-key-mode))
-
-(use-package beacon
-  :ensure t
-  :init
-  (beacon-mode 1))
-
+** Helm onkel dave
+#+BEGIN_SRC emacs-lisp
 ;;Unkel dave sin helm
 (use-package helm
   :ensure t
@@ -64,19 +58,35 @@
 (helm-autoresize-mode 1)
 (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+
 #+END_SRC
-
-
-
-
-
-
-
-
-
-
-
-
+** Beacon
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :ensure t
+  :init
+  (beacon-mode 1))
+#+END_SRC
+** Which key 
+#+BEGIN_SRC emacs-lisp 
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode))
+#+END_SRC
+** Regnboge 
+#+BEGIN_SRC emacs-lisp 
+  (use-package rainbow-mode
+  :ensure t
+  :init (rainbow-mode 1))
+#+END_SRC
+** Avy 
+ #+BEGIN_SRC emacs-lisp
+   (use-package avy
+     :ensure t
+     :bind
+       ("M-s" . avy-goto-char))
+ #+END_SRC
 * Org  
 ** Org bulleterino
 #+BEGIN_SRC emacs-lisp
@@ -106,4 +116,24 @@
 (setq w32-pass-multimedia-buttons-to-system nil)
 (global-set-key (kbd "<browser-forward>") 'next-buffer)
 (global-set-key (kbd "<browser-back>") 'previous-buffer)
+#+END_SRC
+** Async 
+#+BEGIN_SRC emacs-lisp
+(use-package async
+  :ensure t
+  :init (dired-async-mode 1))
+#+END_SRC
+** Config hent 
+#+BEGIN_SRC emacs-lisp
+  (defun hent-config ()
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+  (global-set-key (kbd "C-c e") 'hent-config)
+#+END_SRC
+** Config last inn på nytt 
+#+BEGIN_SRC emacs-lisp
+(defun last-config ()
+(interactive) 
+(org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+(global-set-key (kbd "C-c r") 'last-config)
 #+END_SRC
